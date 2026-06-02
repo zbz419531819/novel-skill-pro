@@ -4,7 +4,13 @@
 
 ### 存储位置
 
-`~/.workbuddy/skills/chinese-novelist-pro/user-preferences.json`
+优先使用已安装 skill 目录中的 `user-preferences.json`。
+
+在 Hermes 中，常见位置是：
+
+`~/.hermes/skills/chinese-novelist-pro/user-preferences.json`
+
+如果当前 skill 被安装到自定义 profile 或其他代理环境，按实际 skill 目录路径为准。
 
 ### 数据结构
 

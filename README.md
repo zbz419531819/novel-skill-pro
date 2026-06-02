@@ -3,6 +3,8 @@
 > 中文小说创作超级助手 — AI 驱动的小说创作全流程自动化工具
 >
 > **Chinese Novelist Pro** 由 [chinese-novelist](#致谢) 和 [oh-story](#致谢) 两个 Skill 融合而成，取其各自优势，形成覆盖扫榜、拆文、大纲、创作、校验、去AI味、封面生成的完整创作流水线。
+>
+> 当前仓库已补充为 **Hermes 兼容版**，可直接通过 `hermes skills inspect/install` 安装。
 
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Status](https://img.shields.io/badge/status-active-success)]()
@@ -107,20 +109,29 @@ chinese-novelist-pro/
 
 ## 🚀 安装与使用
 
-### 前置要求(任意一个AI Agent)
+### 前置要求
 
+推荐在 Hermes Agent 中使用，也可用于其他支持 Markdown skill 的代理环境。
+
+- Hermes Agent
 - Claude Code
 - Codex
-- Hermes-agent
 - WorkBuddy
 - ...
 
-### 安装
+### 在 Hermes 中安装
+
+```bash
+hermes skills inspect https://raw.githubusercontent.com/zbz419531819/novel-skill-pro/main/SKILL.md
+hermes skills install https://raw.githubusercontent.com/zbz419531819/novel-skill-pro/main/SKILL.md
+```
+
+### 手动安装
 
 将本目录放置到 AI agent 的用户级 skills 目录：
 
 ```bash
-cp -r chinese-novelist-pro ~/.{your ai agent folder}/skills/
+cp -r chinese-novelist-pro ~/.{your-ai-agent-folder}/skills/
 ```
 
 ### 使用

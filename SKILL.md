@@ -5,15 +5,21 @@ description: |
 
   覆盖全流程：扫榜调研 → 拆文学习 → 交互式问答 → 大纲规划 → 疯狂创作 → 自动校验 → 去AI味 → 封面生成。
   支持长篇(10-50章/3000-5000字)和短篇(约8000字)双轨。
-  内置跨会话偏好记忆、中断续写、三种写作模式(串行/子Agent并行/Agent Teams)。
+  内置跨会话偏好记忆、中断续写、三种写作模式(串行/子Agent并行/Hermes 多代理协作)。
   集成 100+ 写作技法：钩子13式、情绪设计、反转工具箱、对话技法、女频专项、多视角审稿。
 
   触发方式：「写小说」「创作故事」「开书」「写网文」「帮我写一部长篇」「写个短篇」等。
+version: 1.1.0
+author: CarbonAnimal, adapted for Hermes by zbz419531819
+license: MIT
+platforms: [linux, macos, windows]
 metadata:
   trigger: 创作小说、写网文、开书、长篇、短篇、扫榜、拆文、去AI味、封面、导入小说
   agent_created: true
-  version: "1.0"
   source: 融合 chinese-novelist(v2.0) + oh-story(v0.6.6)
+  hermes:
+    tags: [writing, fiction, chinese, storytelling, longform, review]
+    homepage: https://github.com/zbz419531819/novel-skill-pro
 ---
 
 # Chinese Novelist Pro：中文小说创作超级助手
@@ -45,7 +51,7 @@ metadata:
 
 ### 执行步骤
 
-1. 读取用户偏好文件 `~/.workbuddy/skills/chinese-novelist-pro/user-preferences.json`
+1. 读取用户偏好文件，优先使用已安装 skill 目录中的 `user-preferences.json`；Hermes 常见位置是 `~/.hermes/skills/chinese-novelist-pro/user-preferences.json`
 2. 检测当前工作目录下是否有未完成的小说项目（检查 `追踪/上下文.md` 或 `02-写作计划.json`）
 3. 如有未完成项目，询问用户：继续创作 或 开始新项目
 4. 展示个性化欢迎信息，包含用户历史偏好摘要
@@ -207,7 +213,7 @@ metadata:
 |------|------|---------|
 | **串行** (serial) | 主 Agent 逐章撰写，稳定可靠 | 10-30章，默认推荐 |
 | **子Agent并行** (subagent-parallel) | 章节分批次派生子 Agent 并行写作 | 20-50章，追求速度 |
-| **Agent Teams** (agent-teams) | 多 Agent 协作（架构师+写手+检查） | 30+章大型长篇 |
+| **Agent Teams** (hermes-multi-agent) | 使用 Hermes 的 `delegate_task` 组织大纲/章节/审稿分工 | 30+章大型长篇 |
 
 > 详见：`references/flows/phase4-writing-mode.md`
 
@@ -301,7 +307,7 @@ metadata:
 
 ### 7B. 多视角审稿
 
-派 4 个 Agent 从不同角度审稿：
+在 Hermes 中，优先使用 `delegate_task` 派 4 个独立子任务从不同角度审稿；如果当前会话没有启用委派能力，则由主 Agent 串行完成这 4 个视角：
 - **读者视角**：可读性、吸引力、节奏感
 - **编辑视角**：结构完整性、逻辑一致性、语言质量
 - **平台视角**：按对应平台（起点/番茄/晋江/知乎）标准评分
